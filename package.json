@@ -1,0 +1,16 @@
+{
+  "name": "newman-reporter-ewkoll",
+  "version": "1.0.0",
+  "description": "reporter",
+  "main": "index.js",
+  "scripts": {
+    
+  },
+  "keywords": [
+    "newman",
+    "reporter",
+    "ewkoll"
+  ],
+  "author": "ewkoll",
+  "license": "Apache-2.0"
+}
