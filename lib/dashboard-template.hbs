@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
 
 <style>
+    
 .theme-dark {
     --background-color: #222;
     --bg-card-deck: #444444;
@@ -415,11 +416,15 @@ table.dataTable td, table.dataTable tr {
     vertical-align: middle;
 } 
 
+.container.hide {
+    display: none;
+}
+
 </style>
 </head>
 <body class="">
   <div class="container">
-        <div class="container">
+        <div class="container hide">
             <label>Light</label>
             <label id="switch" class="switch">
                 <input type="checkbox" onchange="toggleTheme()" id="slider">
@@ -432,16 +437,16 @@ table.dataTable td, table.dataTable tr {
         <div class="card-header">
             <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
             <li class="nav-item bg-info active" data-toggle="tooltip" title="Click to view the Summary">
-                <a class="nav-link text-white" id="pills-summary-tab" data-toggle="pill" href="#pills-summary" role="tab" aria-controls="pills-summary" aria-selected="true">Summary</a>
+                <a class="nav-link text-white" id="pills-summary-tab" data-toggle="pill" href="#pills-summary" role="tab" aria-controls="pills-summary" aria-selected="true">摘要</a>
             </li>
             <li class="nav-item bg-success" data-toggle="tooltip" title="Click to view the Requests">
-                <a class="nav-link text-white" id="pills-requests-tab" data-toggle="pill" href="#pills-requests" role="tab" aria-controls="pills-requests" aria-selected="false">Total Requests <span class="badge badge-light">{{stats.requests.total}}</span></a>
+                <a class="nav-link text-white" id="pills-requests-tab" data-toggle="pill" href="#pills-requests" role="tab" aria-controls="pills-requests" aria-selected="false">总请求数 <span class="badge badge-light">{{stats.requests.total}}</span></a>
             </li>
             <li class="nav-item bg-danger" data-toggle="tooltip" title="Click to view the Failed Tests">
-                <a class="nav-link text-white" id="pills-failed-tab" data-toggle="pill" href="#pills-failed" role="tab" aria-controls="pills-failed" aria-selected="false">Failed Tests <span class="badge badge-light">{{failures.length}}</span></a>
+                <a class="nav-link text-white" id="pills-failed-tab" data-toggle="pill" href="#pills-failed" role="tab" aria-controls="pills-failed" aria-selected="false">失败测试数 <span class="badge badge-light">{{failures.length}}</span></a>
             </li>
             <li class="nav-item bg-warning" data-toggle="tooltip" title="Click to view the Skipped Tests">
-                <a class="nav-link text-white" id="pills-skipped-tab" data-toggle="pill" href="#pills-skipped" role="tab" aria-controls="pills-skipped" aria-selected="false">Skipped Tests <span class="badge badge-light">{{#gt skippedTests.length 0}}{{skippedTests.length}}{{else}}0{{/gt}}</span></a>
+                <a class="nav-link text-white" id="pills-skipped-tab" data-toggle="pill" href="#pills-skipped" role="tab" aria-controls="pills-skipped" aria-selected="false">跳过测试数 <span class="badge badge-light">{{#gt skippedTests.length 0}}{{skippedTests.length}}{{else}}0{{/gt}}</span></a>
             </li>
             </ul>
         {{/with}}
@@ -459,7 +464,7 @@ table.dataTable td, table.dataTable tr {
        <div class="rotate">
         <i class="fa fa-retweet fa-5x"></i>
        </div>
-       <h6 class="text-uppercase">Total Iterations</h6>
+       <h6 class="text-uppercase">总循环次数</h6>
        <h1 class="display-{{#gt stats.assertions.total 999 }}4{{else}}1{{/gt}}">{{stats.iterations.total}}</h1>
       </div>
      </div>
@@ -470,7 +475,7 @@ table.dataTable td, table.dataTable tr {
        <div class="rotate">
         <i class="fa fa-list fa-4x"></i>
        </div>
-       <h6 class="text-uppercase">Total Assertions</h6>
+       <h6 class="text-uppercase">总测试用例数</h6>
        <h1 class="display-{{#gt stats.assertions.total 999 }}4{{else}}1{{/gt}}">{{totalTests stats.assertions.total skippedTests.length}}</h1>
       </div>
      </div>
@@ -481,7 +486,7 @@ table.dataTable td, table.dataTable tr {
        <div class="rotate">
         <i class="fa fa-plus-circle fa-5x"></i>
        </div>
-       <h6 class="text-uppercase">Total Failed Tests</h6>
+       <h6 class="text-uppercase">总失败测试数</h6>
        <h1 class="display-{{#gt stats.assertions.total 999 }}4{{else}}1{{/gt}}">{{failures.length}}</h1>
       </div>
      </div>
@@ -492,7 +497,7 @@ table.dataTable td, table.dataTable tr {
        <div class="rotate">
         <i class="fa fa-share fa-5x"></i>
        </div>
-       <h6 class="text-uppercase">Total Skipped Tests</h6>
+       <h6 class="text-uppercase">总跳过测试数</h6>
        <h1 class="display-{{#gt stats.assertions.total 999 }}4{{else}}1{{/gt}}">{{#gt skippedTests.length 0}}{{skippedTests.length}}{{else}}0{{/gt}}</h1>
       </div>
      </div>
@@ -505,12 +510,12 @@ table.dataTable td, table.dataTable tr {
         <div class="col-sm-12 mb-3">
             <div class="card border-info">
                 <div class="card-body">
-                <h5 class="card-title text-uppercase text-white text-center bg-info">File Information</h5>
-                <span><i class="fas fa-file-code"></i></span><strong> Collection:</strong> {{collection.name}}<br>
+                <h5 class="card-title text-uppercase text-white text-center bg-info">文件信息</h5>
+                <span><i class="fas fa-file-code"></i></span><strong> 用例集合名称:</strong> {{collection.name}}<br>
                 {{/with}}
-                {{#if folders}}<span><i class="fas fa-folder"></i></span><strong> Specified Folders:</strong> {{folders}}<br>{{/if}}
+                {{#if folders}}<span><i class="fas fa-folder"></i></span><strong> 目录:</strong> {{folders}}<br>{{/if}}
                 {{#with summary}}  
-                {{#if environment.name}}<span><i class="fas fa-file-code"></i></span><strong> Environment:</strong> {{environment.name}}<br>{{/if}}
+                {{#if environment.name}}<span><i class="fas fa-file-code"></i></span><strong> 环境变量名称:</strong> {{environment.name}}<br>{{/if}}
                 </div>
             </div>
         </div>
@@ -524,7 +529,7 @@ table.dataTable td, table.dataTable tr {
                     <h5 class="card-header bg-info text-center text-uppercase" style="height: 45px;">
                         <a data-toggle="collapse" href="#gloabl-values" aria-expanded="true" aria-controls="collapse-example" id="gloabl-heading" class="env-heading collapsed d-block" style="color: white;">
                             <i class="float-lg-right fa fa-chevron-down"></i>
-                                Global Variables
+                                全局变量
                             </a>
                     </h5>
                     <div id="gloabl-values" class="collapse" aria-labelledby="gloabl-heading">
@@ -532,7 +537,7 @@ table.dataTable td, table.dataTable tr {
                         
                         <div class="table-responsive dyn-height">
                             <table class="table table-bordered">
-                            <thead class="thead-light text-center"><tr><th>Variable Name</th><th>Variable Value</th></tr></thead>
+                            <thead class="thead-light text-center"><tr><th>变量名称</th><th>变量内容</th></tr></thead>
                                 <tbody>
                                     {{#each globals.values.members}}
                                     {{#isNotIn key @root.skipGlobalVars}}
@@ -562,7 +567,7 @@ table.dataTable td, table.dataTable tr {
                     <h5 class="card-header bg-info text-center text-uppercase" style="height: 45px;">
                         <a data-toggle="collapse" href="#environment-values" aria-expanded="true" aria-controls="collapse-example" id="environment-heading" class="env-heading collapsed d-block" style="color: white;">
                             <i class="float-lg-right fa fa-chevron-down"></i>
-                                Environment Variables
+                                环境变量
                             </a>
                     </h5>
                     <div id="environment-values" class="collapse" aria-labelledby="environment-heading">
@@ -570,7 +575,7 @@ table.dataTable td, table.dataTable tr {
                         
                         <div class="table-responsive dyn-height">
                             <table class="table table-bordered">
-                            <thead class="thead-light text-center"><tr><th>Variable Name</th><th>Variable Value</th></tr></thead>
+                            <thead class="thead-light text-center"><tr><th>变量名称</th><th>变量内容</th></tr></thead>
                                 <tbody>
                                     {{#each environment.values.members}}
                                     {{#isNotIn key @root.skipEnvironmentVars}}
@@ -596,7 +601,7 @@ table.dataTable td, table.dataTable tr {
         <div class="col-sm-12 mb-3">
             <div class="card border-info">
                 <div class="card-body">
-                <h5 class="card-title text-uppercase text-white text-center bg-info">Collection Description</h5>
+                <h5 class="card-title text-uppercase text-white text-center bg-info">测试用例集合描述</h5>
                 <div class="dyn-height">
                     <code class="renderMarkdown">{{collection.description}}</code>
                 </div>
@@ -609,10 +614,10 @@ table.dataTable td, table.dataTable tr {
         <div class="col-sm-12 mb-3">
             <div class="card border-info">
                 <div class="card-body">
-                <h5 class="card-title text-uppercase text-white text-center bg-info">Timings and Data</h5>
-                <span><i class="fas fa-stopwatch"></i></span><strong> Total run duration:</strong> {{duration}}<br>
-                <span><i class="fas fa-database"></i></span><strong> Total data received:</strong> {{responseTotal}}<br>
-                <span><i class="fas fa-stopwatch"></i></span><strong> Average response time:</strong> {{responseAverage}}<br>
+                <h5 class="card-title text-uppercase text-white text-center bg-info">时间和数据</h5>
+                <span><i class="fas fa-stopwatch"></i></span><strong> 总执行时间:</strong> {{duration}}<br>
+                <span><i class="fas fa-database"></i></span><strong> 总接收数据:</strong> {{responseTotal}}<br>
+                <span><i class="fas fa-stopwatch"></i></span><strong> 平均响应时间:</strong> {{responseAverage}}<br>
                 </div>
             </div>
         </div>
@@ -624,37 +629,37 @@ table.dataTable td, table.dataTable tr {
             <table class="table table-striped table-bordered">
                 <thead class="thead-inverse">
                     <tr class="text-center">
-                        <th class="text-uppercase">Summary Item</th>
-                        <th class="text-uppercase">Total</th>
-                        <th class="text-uppercase">Failed</th>
+                        <th class="text-uppercase">摘要项目</th>
+                        <th class="text-uppercase">总数</th>
+                        <th class="text-uppercase">失败数</th>
                     </tr>
                 </thead>
                 <tbody>
                 {{#with summary.stats}}
                     <tr>
-                        <td>Requests</td>
+                        <td>请求数</td>
                         <td class="text-center">{{requests.total}}</td>
                         <td class="text-center">{{requests.failed}}</td>
                     </tr>
                     <tr>
-                        <td>Prerequest Scripts</td>
+                        <td>预执行脚本</td>
                         <td class="text-center">{{prerequestScripts.total}}</td>
                         <td class="text-center">{{prerequestScripts.failed}}</td>
                     </tr>
                     <tr>
-                        <td>Test Scripts</td>
+                        <td>测试脚本</td>
                         <td class="text-center">{{testScripts.total}}</td>
                         <td class="text-center">{{testScripts.failed}}</td>
                     </tr>
                     {{/with}}
                     {{#with summary}}
                     <tr class="{{#gt failures.length 0}}table-danger{{/gt}}">
-                        <td>Assertions</td>
+                        <td>用例</td>
                         <td class="text-center">{{totalTests stats.assertions.total skippedTests.length}}</td>
                         <td class="text-center">{{stats.assertions.failed}}</td>
                     </tr>
                     <tr class="{{#gt skippedTests.length 0}}table-warning{{/gt}}">
-                        <td>Skipped Tests</td>
+                        <td>跳过测试数</td>
                         <td class="text-center">{{#gt skippedTests.length 0}}{{skippedTests.length}}{{else}}0{{/gt}}</td>
                         <td class="text-center">-</td>
                     </tr>
@@ -671,18 +676,18 @@ table.dataTable td, table.dataTable tr {
  </div>
         </div>
             <div class="tab-pane fade" id="pills-failed" role="tabcard" aria-labelledby="pills-failed-tab">
-                <button id="topOfFailuresScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">Go To Top</button>
+                <button id="topOfFailuresScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">回到顶部</button>
                 
                 {{#if summary.failures.length}}
                     <div class="btn-group float-right" role="group" aria-label="Button Group">
-                        <button id="openAllFailed" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 185px;">Expand All Failed Tests</button>
+                        <button id="openAllFailed" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 185px;">展开所有失败测试</button>
                     </div>
                     <br>
                     <br>
 
                     {{#with summary}}
                     <div class="alert alert-danger text-uppercase text-center">
-                        <h4>Showing {{failures.length}} {{#gt failures.length 1}}Failures{{else}}Failure{{/gt}}</h4>
+                        <h4>总共失败测试数量：{{failures.length}}个</h4>
                     </div>
                     {{/with}}
                     {{#each summary.failures}}
@@ -696,9 +701,9 @@ table.dataTable td, table.dataTable tr {
                             </div>
                             <div id="fails-collapse-{{cursor.ref}}" class="collapse" aria-labelledby="fails-{{cursor.ref}}">
                             <div class="card-body">
-                                <h5 {{#if @root.showMarkdownLinks}}class="renderMarkdown"{{/if}}><strong>Failed Test:</strong> {{error.test}}</h5>
+                                <h5 {{#if @root.showMarkdownLinks}}class="renderMarkdown"{{/if}}><strong>失败测试:</strong> {{error.test}}</h5>
                             <hr>
-                            <h5 class="card-title text-uppercase text-white text-center bg-danger">Assertion Error Message</h5>
+                            <h5 class="card-title text-uppercase text-white text-center bg-danger">断言和错误信息</h5>
                             <div>
                                 <pre><code {{#if @root.showMarkdownLinks}}class="renderMarkdown"{{/if}}>{{error.message}}</code></pre>
                             </div>
@@ -710,24 +715,24 @@ table.dataTable td, table.dataTable tr {
                     {{/each}}
                 {{else}}
                 <div class="alert alert-success text-uppercase text-center">
-                     <br><br><h1 class="text-center">There are no failed tests <span><i class="far fa-thumbs-up"></i></span></h1><br><br>
+                     <br><br><h1 class="text-center">没有失败测试用例 <span><i class="far fa-thumbs-up"></i></span></h1><br><br>
                 </div>
                 {{/if}}
             </div>
 
             <div class="tab-pane fade" id="pills-skipped" role="tabcard" aria-labelledby="pills-skipped-tab">
-                <button id="topOfSkippedScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">Go To Top</button>
+                <button id="topOfSkippedScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">回到顶部</button>
 
                 {{#if summary.skippedTests.length}}
                     <div class="btn-group float-right" role="group" aria-label="Button Group">
-                        <button id="openAllSkipped" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 185px;">Expand All Skipped Tests</button>
+                        <button id="openAllSkipped" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 185px;">展开所有跳过测试</button>
                     </div>
                     <br>
                     <br>
                 
                     {{#with summary}}
                     <div class="alert alert-warning text-uppercase text-center">
-                        <h4>Showing {{skippedTests.length}} Skipped {{#gt skippedTests.length 1}}Tests{{else}}Test{{/gt}}</h4>
+                        <h4>总跳过测试总数：{{skippedTests.length}}个</h4>
                     </div>
                     {{/with}}
                     {{#each summary.skippedTests}}
@@ -741,7 +746,7 @@ table.dataTable td, table.dataTable tr {
                             </div>
                             <div id="skipped-collapse-{{cursor.ref}}" class="collapse" aria-labelledby="skipped-{{cursor.ref}}">
                             <div class="card-body">
-                                <h5><strong>Request Name:</strong> {{item.name}}</h5>
+                                <h5><strong>请求名称:</strong> {{item.name}}</h5>
                             </div>
                             </div>
                         </div>
@@ -750,25 +755,25 @@ table.dataTable td, table.dataTable tr {
                     {{/each}}
                 {{else}}
                 <div class="alert alert-success text-uppercase text-center">
-                    <br><br><h1 class="text-center">There are no skipped tests <span><i class="far fa-thumbs-up"></i></span></h1><br><br>
+                    <br><br><h1 class="text-center">没有跳过测试用例 <span><i class="far fa-thumbs-up"></i></span></h1><br><br>
                 </div>
                 {{/if}}
             </div>
             <div class="tab-pane fade" id="pills-requests" role="tabcard" aria-labelledby="pills-requests-tab">
 
-            <button id="topOfRequestsScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">Go To Top</button>
+            <button id="topOfRequestsScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">回到顶部</button>
             
             <div class="btn-group float-right" role="group" aria-label="Button Group">
                 {{#if summary.failures.length}}
-                <button id="showOnlyFailures" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width:160px;">Show Failed Iterations</button>
+                <button id="showOnlyFailures" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width:160px;">显示失败轮测试</button>
                 {{/if}}
-                <button id="openAll" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 140px;">Expand Folders</button>
-                <button id="openAllRequests" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 140px;">Expand Requests</button>
+                <button id="openAll" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 140px;">展开目录</button>
+                <button id="openAllRequests" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 140px;">展开请求</button>
             </div>
 
     <div class="text-uppercase" id="execution-menu">
         {{#with summary}}
-        <h5>{{stats.iterations.total}} {{#gt stats.iterations.total 1}}Iterations{{else}}Iteration{{/gt}} available to view</h5>
+        <h5>第{{stats.iterations.total}}轮测试</h5>
         {{#gt stats.iterations.total 18}}<input class="form-control w-25" style="margin-bottom: 5px;" id="filterInput" type="number" min="1" placeholder="Filter Iterations">{{/gt}}
         {{/with}}
         <nav class="table-responsive">
@@ -783,7 +788,7 @@ table.dataTable td, table.dataTable tr {
         <div class="alert alert-dark text-uppercase text-center iteration-{{parent.iteration}}">
         <a data-toggle="collapse" href="#" data-target="#folder-collapse-{{parent.id}}-iteration-{{parent.iteration}}" aria-expanded="false" aria-controls="collapse" id="folder-{{parent.id}}-iteration-{{parent.iteration}}" class="collapsed text-dark z-block">
         <i class="fas fa-info-circle float-left resultsInfoPass" {{#each executions}}{{#if cumulativeTests.failed}} style="color: #c24a3f; padding-top: 4px;"{{/if}}{{/each}}></i>
-            {{parent.name}} - {{executions.length}} {{#gt executions.length 1}}Requests{{else}}Request{{/gt}} in the folder<i class="float-lg-right fa fa-chevron-down" style="padding-top: 5px;"></i>
+            {{parent.name}} - {{executions.length}} {{#gt executions.length 1}}Requests{{else}}Request{{/gt}}<i class="float-lg-right fa fa-chevron-down" style="padding-top: 5px;"></i>
         </a>
         </div>
         <div id="folder-collapse-{{parent.id}}-iteration-{{parent.iteration}}" class="collapse" aria-labelledby="folder-{{parent.id}}">
@@ -810,7 +815,7 @@ table.dataTable td, table.dataTable tr {
         <div class="card-deck">
             <div class="card border-info" style="width: 50rem;">
                 <div class="card-body">
-                <h5 class="card-title text-uppercase text-white text-center bg-info">Folder Description</h5>
+                <h5 class="card-title text-uppercase text-white text-center bg-info">目录描述</h5>
                     <div class="dyn-height">
                         <code class="renderMarkdown">{{parent.description.content}}</code>
                     </div>
@@ -831,7 +836,7 @@ table.dataTable td, table.dataTable tr {
             Iteration: {{inc cursor.iteration}} - {{item.name}} <i class="float-lg-right fa fa-chevron-down" style="padding-top: 5px;"></i>
         </a>
         {{#if cumulativeTests.skipped}}
-        <span class="badge badge-warning text-white text-uppercase">{{cumulativeTests.skipped}} Skipped {{#gt cumulativeTests.skipped 1}}Tests{{else}}Test{{/gt}}</span>
+        <span class="badge badge-warning text-white text-uppercase">跳过测试数量：{{cumulativeTests.skipped}}个</span>
         {{/if}}
             </div>
             <div id="collapse-{{cursor.ref}}" class="collapse" aria-labelledby="requests-{{cursor.ref}}">
@@ -843,7 +848,7 @@ table.dataTable td, table.dataTable tr {
                     <div class="card-deck">
                         <div class="card border-info" style="width: 50rem;">
                             <div class="card-body">
-                            <h5 class="card-title text-uppercase text-white text-center bg-info">Request Description</h5>
+                            <h5 class="card-title text-uppercase text-white text-center bg-info">请求描述</h5>
                                 <div class="dyn-height">
                                     <code class="renderMarkdown">{{description.content}}</code>
                                 </div>
@@ -859,19 +864,19 @@ table.dataTable td, table.dataTable tr {
                         <div class="card-deck">
                         <div class="card border-info" style="width: 50rem;">
                             <div class="card-body">
-                            <h5 class="card-title text-uppercase text-white text-center bg-info">Request Information</h5>
-                            <span><i class="fas fa-info-circle"></i></span><strong> Request Method:</strong> <span class="badge-outline-success badge badge-success"> {{request.method}}</span><br>
-                            <span><i class="fas fa-info-circle"></i></span><strong> Request URL:</strong> <a href="{{request.url}}" target="_blank">{{request.url}}</a><br>
+                            <h5 class="card-title text-uppercase text-white text-center bg-info">请求信息</h5>
+                            <span><i class="fas fa-info-circle"></i></span><strong> 请求方法:</strong> <span class="badge-outline-success badge badge-success"> {{request.method}}</span><br>
+                            <span><i class="fas fa-info-circle"></i></span><strong> 请求URL:</strong> <a href="{{request.url}}" target="_blank">{{request.url}}</a><br>
                             </div>
                         </div>
                         <div class="card border-info" style="width: 50rem;">
                             <div class="card-body">
-                            <h5 class="card-title text-uppercase text-white text-center bg-info">Response Information</h5>
-                            <span><i class="fas fa-info-circle"></i></span><strong> Response Code:</strong> <span class="float-right badge-outline badge badge-success"> {{response.code}} - {{response.status}}</span><br>
-                            <span><i class="fas fa-stopwatch"></i></span><strong> Mean time per request:</strong> <span class="float-right badge-outline badge badge-success"> {{mean.time}}</span><br>
-                            <span><i class="fas fa-database"></i></span><strong> Mean size per request:</strong> <span class="float-right badge-outline badge badge-success"> {{mean.size}}</span><br>
+                            <h5 class="card-title text-uppercase text-white text-center bg-info">响应信息</h5>
+                            <span><i class="fas fa-info-circle"></i></span><strong> 响应代码:</strong> <span class="float-right badge-outline badge badge-success"> {{response.code}} - {{response.status}}</span><br>
+                            <span><i class="fas fa-stopwatch"></i></span><strong> 平均响应时间:</strong> <span class="float-right badge-outline badge badge-success"> {{mean.time}}</span><br>
+                            <span><i class="fas fa-database"></i></span><strong> 平均请求大小:</strong> <span class="float-right badge-outline badge badge-success"> {{mean.size}}</span><br>
                             <hr>
-                            <h5 class="card-title text-uppercase text-white text-center bg-info">Test Pass Percentage</h5>
+                            <h5 class="card-title text-uppercase text-white text-center bg-info">测试通过率</h5>
                             <div>
                                 {{#if assertions.length}}
                                 <div class="progress" style="height: 40px;">
@@ -882,7 +887,7 @@ table.dataTable td, table.dataTable tr {
                                 {{else}}
                                 <div class="progress" style="height: 40px;">
                                     <div class="progress-bar bg-success" style="width: 100%" role="progressbar">
-                                    <h5 class="text-uppercase text-white text-center" style="padding-top:5px;"><strong>No Tests for this request</strong></h5>
+                                    <h5 class="text-uppercase text-white text-center" style="padding-top:5px;"><strong>这个请求没有测试脚本</strong></h5>
                                     </div>
                                 </div>
                                 {{/if}}
@@ -900,11 +905,11 @@ table.dataTable td, table.dataTable tr {
                         <div class="card-deck">
                         <div class="card border-info" style="width: 50rem;">
                             <div class="card-body">
-                                <h5 class="card-title text-uppercase text-white text-center bg-info">Request Headers</h5>
+                                <h5 class="card-title text-uppercase text-white text-center bg-info">请求头信息</h5>
                                 {{#if headers}}
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
-                                    <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                    <thead class="thead-light text-center"><tr><th>请求头名称</th><th>请求头内容</th></tr></thead>
                                         <tbody>
                                             {{#each headers.members}}
                                             {{#isNotIn key @root.skipHeaders}}
@@ -932,7 +937,7 @@ table.dataTable td, table.dataTable tr {
                     <div class="card-deck">
                     <div class="card border-info" style="width: 50rem;">
                         <div class="card-body">
-                            <h5 class="card-title text-uppercase text-white text-center bg-info">Request Body</h5>
+                            <h5 class="card-title text-uppercase text-white text-center bg-info">请求体</h5>
                                 <div class="dyn-height">
                                     <pre><code id="copyReqText-{{@key}}" class="prettyPrint">{{body.raw}}</code></pre>
                                 </div>
@@ -951,7 +956,7 @@ table.dataTable td, table.dataTable tr {
                             <div class="card-deck">
                                 <div class="card border-info" style="width: 50rem;">
                                     <div class="card-body">
-                                        <h5 class="card-title text-uppercase text-white text-center bg-info">Request Body</h5>
+                                        <h5 class="card-title text-uppercase text-white text-center bg-info">请求体</h5>
                                         <div class="dyn-height">
                                             <pre><code id="copyReqText-{{@key}}" class="prettyPrint">{{formdata body.formdata.members}}</code></pre>
                                         </div>
@@ -970,7 +975,7 @@ table.dataTable td, table.dataTable tr {
                             <div class="card-deck">
                                 <div class="card border-info" style="width: 50rem;">
                                     <div class="card-body">
-                                        <h5 class="card-title text-uppercase text-white text-center bg-info">Request Body</h5>
+                                        <h5 class="card-title text-uppercase text-white text-center bg-info">请求体</h5>
                                         <div class="dyn-height">
                                             <pre><code id="copyReqText-{{@key}}" class="prettyPrint">{{formdata body.urlencoded.members}}</code></pre>
                                         </div>
@@ -989,7 +994,7 @@ table.dataTable td, table.dataTable tr {
                     <div class="card-deck">
                     <div class="card border-info" style="width: 50rem;">
                         <div class="card-body">
-                            <h5 class="card-title text-uppercase text-white text-center bg-info">Request Body</h5>
+                            <h5 class="card-title text-uppercase text-white text-center bg-info">请求体</h5>
                                 <div class="dyn-height">
                                     <pre><code id="copyReqText-{{@key}}" class="prettyPrint">{{body.graphql.query}}</code></pre>
                                 </div>
@@ -997,7 +1002,7 @@ table.dataTable td, table.dataTable tr {
                                     <button class="btn btn-outline-secondary btn-sm copyButton" type="button" data-clipboard-action="copy" data-clipboard-target="#copyReqText-{{@key}}">Copy to Clipboard</button>
                                 </div>
                                 {{#if body.graphql.variables }}
-                                <h6 class="card-title text-uppercase text-white text-center bg-info">Graphql Variables</h6>
+                                <h6 class="card-title text-uppercase text-white text-center bg-info">Graphql变量</h6>
                                 <div class="dyn-height">
                                     <pre><code id="copyReqText-{{@key}}" class="prettyPrint">{{body.graphql.variables}}</code></pre>
                                 </div>
@@ -1017,11 +1022,11 @@ table.dataTable td, table.dataTable tr {
                     <div class="card-deck">
                     <div class="card border-info" style="width: 50rem;">
                         <div class="card-body">
-                            <h5 class="card-title text-uppercase text-white text-center bg-info">Response Headers</h5>
+                            <h5 class="card-title text-uppercase text-white text-center bg-info">响应头信息</h5>
                             {{#if response.header}}
                             <div class="table-responsive">
                                 <table class="table table-bordered">
-                                <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                <thead class="thead-light text-center"><tr><th>响应头名称</th><th>响应头内容</th></tr></thead>
                                     <tbody>
                                         {{#each response.header}}
                                         {{#isNotIn key @root.skipHeaders}}
@@ -1049,7 +1054,7 @@ table.dataTable td, table.dataTable tr {
                     <div class="card-deck">
                     <div class="card border-info" style="width: 50rem;">
                         <div class="card-body">
-                            <h5 class="card-title text-uppercase text-white text-center bg-info">Response Body</h5>
+                            <h5 class="card-title text-uppercase text-white text-center bg-info">响应体</h5>
                             {{#if response.body}}
                                 <div class="dyn-height">
                                         <pre><code id="copyText-{{item.id}}" class="prettyPrint">{{response.body}}</code></pre>
@@ -1058,7 +1063,7 @@ table.dataTable td, table.dataTable tr {
                                     <button class="btn btn-outline-secondary btn-sm copyButton" type="button" data-clipboard-action="copy" data-clipboard-target="#copyText-{{item.id}}">Copy to Clipboard</button>
                                 </div>
                             {{else}}
-                            <h5 class="alert alert-success text-uppercase text-center">No Response Body for this request</h5>
+                            <h5 class="alert alert-success text-uppercase text-center">这个请求没有响应体</h5>
                             {{/if}}
                         </div>
                     </div>
@@ -1073,11 +1078,11 @@ table.dataTable td, table.dataTable tr {
                     <div class="card-deck">
                     <div class="card border-info" style="width: 50rem;">
                         <div class="card-body">
-                            <h5 class="card-title text-uppercase text-white text-center bg-info">Console Logs</h5>
+                            <h5 class="card-title text-uppercase text-white text-center bg-info">控制台日志</h5>
                             <div class="dyn-height">
                             <div class="table-responsive">
                                 <table class="table table-bordered">
-                                <thead class="thead-light text-center"><tr><th>Log Messages</th></tr></thead>
+                                <thead class="thead-light text-center"><tr><th>日志信息</th></tr></thead>
                                     <tbody>
                                         {{#each consoleLogs}}
                                         <tr>
@@ -1097,11 +1102,11 @@ table.dataTable td, table.dataTable tr {
                 <div class="row">
                     <div class="card border-info">
                         <div class="card-body">
-                        <h5 class="card-title text-uppercase text-white text-center bg-info">Test Information</h5>
+                        <h5 class="card-title text-uppercase text-white text-center bg-info">测试信息</h5>
                             {{#if assertions.length}}
                             <div class="table-responsive text-nowrap">
                                 <table id="myTable-{{item.id}}" class="table table-hover">
-                                <thead><tr class="text-center"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th></tr></thead>
+                                <thead><tr class="text-center"><th>名称</th><th>通过</th><th>失败</th><th>跳过</th></tr></thead>
                                     <tbody>
                                         {{#each assertions}}
                                         <tr {{#if @root.showMarkdownLinks}}{{/if}}>
@@ -1114,7 +1119,7 @@ table.dataTable td, table.dataTable tr {
                                     </tbody>
                                     <tfoot>
                                         <tr class="bg-light">
-                                            <td><strong>Total</strong></td>
+                                            <td><strong>总数</strong></td>
                                             <td class="text-center">{{cumulativeTests.passed}}</td>
                                             <td class="text-center">{{cumulativeTests.failed}}</td>
                                             <td class="text-center">{{cumulativeTests.skipped}}</td>
@@ -1127,10 +1132,10 @@ table.dataTable td, table.dataTable tr {
                                 <div class="card-deck">
                                 <div class="card border-danger" style="width: 50rem;">
                                     <div class="card-body">
-                                        <h5 class="card-title text-uppercase text-white text-center bg-danger">Test {{#lte cumulativeTests.failed 1}}Failure{{else}}Failures{{/lte}}</h5>
+                                        <h5 class="card-title text-uppercase text-white text-center bg-danger">测试失败</h5>
                                         <div class="table-responsive">
                                             <table class="table table-hover">
-                                            <thead><tr class="text-nowrap"><th>Test Name</th><th>Assertion Error</th></tr></thead>
+                                            <thead><tr class="text-nowrap"><th>测试名称</th><th>用例错误信息</th></tr></thead>
                                                 <tbody>
                                                     {{#each assertions}}
                                                     {{#isTheSame testFailure.test this.name}}
@@ -1149,7 +1154,7 @@ table.dataTable td, table.dataTable tr {
                             </div>
                             </div>
                             {{else}}
-                            <h5 class="alert alert-success text-uppercase text-center">No Tests for this request</h5>
+                            <h5 class="alert alert-success text-uppercase text-center">这个请求没有测试脚本</h5>
                             {{/if}}
                         </div>
                     </div>
@@ -1213,14 +1218,14 @@ switch (clickCount){
             $('#folder-{{parent.id}}-iteration-{{parent.iteration}}').removeClass('collapsed')
             $('#folder-collapse-{{parent.id}}-iteration-{{parent.iteration}}').addClass('show')
         {{/each}}
-        $('#openAll').html("Collapse Folders");
+        $('#openAll').html("折叠目录");
         break;
     case 2:
         {{#each aggregations}}
             $('#folder-{{parent.id}}-iteration-{{parent.iteration}}').addClass('collapsed')
             $('#folder-collapse-{{parent.id}}-iteration-{{parent.iteration}}').removeClass('show')
         {{/each}}
-        $('#openAll').html("Expand Folders");
+        $('#openAll').html("展开目录");
         break;
 }
 clickCount = clickCount > 1 ? 1 : ++clickCount;
@@ -1243,7 +1248,7 @@ switch (clickCount){
             $('#collapse-{{cursor.ref}}').addClass('show')
         {{/each}}
         {{/each}}
-        $('#openAllRequests').html("Collapse Requests");
+        $('#openAllRequests').html("折叠请求");
         break;
     case 2:
         {{#each aggregations}}
@@ -1254,7 +1259,7 @@ switch (clickCount){
             $('#collapse-{{cursor.ref}}').removeClass('show')
         {{/each}}
         {{/each}}
-        $('#openAllRequests').html("Expand Requests");
+        $('#openAllRequests').html("展开请求");
         break;
 }
 clickCount = clickCount > 1 ? 1 : ++clickCount;
@@ -1277,7 +1282,7 @@ switch (clickCount){
             $('#skipped-collapse-{{cursor.ref}}').addClass('show')
         {{/each}}
         {{/each}}
-        $('#openAllSkipped').html("Collapse All Skipped Tests");
+        $('#openAllSkipped').html("折叠所有跳过的测试");
         break;
     case 2:
         {{#each aggregations}}
@@ -1288,7 +1293,7 @@ switch (clickCount){
             $('#skipped-collapse-{{cursor.ref}}').removeClass('show')
         {{/each}}
         {{/each}}
-        $('#openAllSkipped').html("Expand All Skipped Tests");
+        $('#openAllSkipped').html("展开所有跳过的测试");
         break;
 }
 clickCount = clickCount > 1 ? 1 : ++clickCount;
@@ -1311,7 +1316,7 @@ switch (clickCount){
             $('#fails-collapse-{{cursor.ref}}').addClass('show')
         {{/each}}
         {{/each}}
-        $('#openAllFailed').html("Collapse All Failed Tests");
+        $('#openAllFailed').html("折叠所有失败的测试");
         break;
     case 2:
         {{#each aggregations}}
@@ -1322,7 +1327,7 @@ switch (clickCount){
             $('#fails-collapse-{{cursor.ref}}').removeClass('show')
         {{/each}}
         {{/each}}
-        $('#openAllFailed').html("Expand All Failed Tests");
+        $('#openAllFailed').html("展开所有失败的测试");
         break;
 }
 clickCount = clickCount > 1 ? 1 : ++clickCount;
@@ -1587,7 +1592,7 @@ $(document).ready(function(){
           $(this).toggle();
          });
         clickCount = clickCount ? 0 : ++clickCount;
-        clickCount ? $("#showOnlyFailures").html("Show All Iterations") : $("#showOnlyFailures").html("Show Failed Iterations");
+        clickCount ? $("#showOnlyFailures").html("显示所有测试轮") : $("#showOnlyFailures").html("显示失败测试轮");
         $(this).data("clickCount", clickCount)     
     });
   }
