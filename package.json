@@ -1,18 +1,28 @@
 {
-  "name": "newman-reporter-ewkoll",
-  "version": "1.0.0",
-  "description": "reporter cn",
-  "main": "index.js",
-  "scripts": {},
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Ewkoll/newman-reporter-ewkoll.git"
-  },
-  "keywords": [
-    "newman",
-    "reporter",
-    "ewkoll"
-  ],
-  "author": "ewkoll",
-  "license": "Apache-2.0"
+    "name": "newman-reporter-ewkoll",
+    "version": "1.0.1",
+    "description": "reporter cn",
+    "main": "index.js",
+    "scripts": {},
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Ewkoll/newman-reporter-ewkoll.git"
+    },
+    "keywords": [
+        "newman",
+        "reporter",
+        "ewkoll"
+    ],
+    "dependencies": {
+        "filesize": "^6.1.0",
+        "handlebars": "^4.7.6",
+        "handlebars-helpers": "^0.10.0",
+        "lodash": "^4.17.19",
+        "moment-timezone": "^0.5.31",
+        "pretty-ms": "^6.0.1",
+        "snyk": "^1.364.2"
+    },
+    "snyk": true,
+    "author": "ewkoll",
+    "license": "Apache-2.0"
 }
