@@ -1,10 +1,12 @@
 {
   "name": "newman-reporter-ewkoll",
   "version": "1.0.0",
-  "description": "reporter",
+  "description": "reporter cn",
   "main": "index.js",
-  "scripts": {
-    
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ewkoll/newman-reporter-ewkoll.git"
   },
   "keywords": [
     "newman",
